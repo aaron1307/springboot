@@ -19,9 +19,9 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
     @Bean
     protected ThreadPoolTaskExecutor mvcTaskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setThreadNamePrefix("my-mvc-task-executor-");
+        executor.setThreadNamePrefix("springboot-mvc-task-executor-");
         executor.setCorePoolSize(5);
-        executor.setMaxPoolSize(200);
+        executor.setMaxPoolSize(20);
         return executor;
     }
 

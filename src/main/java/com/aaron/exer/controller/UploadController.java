@@ -1,5 +1,6 @@
 package com.aaron.exer.controller;
 
+import com.aaron.exer.bean.UploadBean;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
@@ -22,14 +23,29 @@ public class UploadController {
     public static final Resource PICTURES_DIR = new FileSystemResource("./picture");
 
     @RequestMapping(value = "upload")
-    public String getUploadPage() throws IOException {
+    public String getUploadPage(UploadBean uploadBean) throws IOException {
         System.out.println(PICTURES_DIR.getFilename());
 
         return "upload";
     }
 
     @RequestMapping(value = "upload", method = RequestMethod.POST)
-    public String upload(MultipartFile file) throws IOException {
+    public String upload(UploadBean uploadBean, MultipartFile[] files) throws IOException {
+
+//        System.out.println(uploadBean.getEmail()+" "+uploadBean.getName()+" ");
+
+//        File f=new File(PICTURES_DIR.getFile().getAbsolutePath()+File.separator+"newFolder");
+
+//        f.mkdir();
+
+        for(MultipartFile file:files) {
+            saveFile(file);
+        }
+
+        return "uploadSuccess";
+    }
+
+    private void saveFile(MultipartFile file) throws IOException {
         String filename = file.getOriginalFilename();
         File tempFile = File.createTempFile("uploaded", getFileExtension(filename), PICTURES_DIR.getFile());
 
@@ -37,13 +53,11 @@ public class UploadController {
              OutputStream out = new FileOutputStream(tempFile)) {
             IOUtils.copy( in, out);
         }
-
-        return "uploadSuccess";
     }
 
     @RequestMapping(value = "/uploadedPicture")
     public void getUploadedPicture(HttpServletResponse response) throws IOException {
-        Resource classPathResource = new FileSystemResource("./picture/anonymous.png");
+        Resource classPathResource = new FileSystemResource("./picture/"+"anonymous.png");
         response.setHeader("Content-Type", URLConnection.guessContentTypeFromName(classPathResource.getFilename()));
         IOUtils.copy(classPathResource.getInputStream(), response.getOutputStream());
     }

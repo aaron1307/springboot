@@ -2,6 +2,10 @@ package com.aaron.exer.controller;
 
 import com.aaron.exer.bean.UserBean;
 import com.aaron.exer.date.DateFormatter;
+import com.aaron.exer.util.MailClient;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,6 +23,15 @@ import java.util.Locale;
 
 @Controller
 public class UserController {
+
+    @Autowired
+    private TaskExecutor taskExecutor;
+
+    @Autowired
+    private MailClient mailClient;
+
+    @Value("${spring.mail.targetAddress}")
+    private String userBucketPath;
 
     @RequestMapping(value="/user",method= RequestMethod.GET)
     public String getUserPage(UserBean userBean){
@@ -41,6 +54,18 @@ public class UserController {
 
     @RequestMapping(value="/admin",method= RequestMethod.GET)
     public String getAdminPage(){
+
+        try {
+            taskExecutor.execute(new Runnable() {
+                public void run() {
+//                    mailClient.prepareAndSend("cratercreater@gmail.com","Admin login");
+                    System.out.println(userBucketPath);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return "admin";
     }
 

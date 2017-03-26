@@ -26,6 +26,7 @@ public @interface UserName {
 	 * @Fields regexp : regular expressions to match phone numbers
 	 */   
 	String regexp() default "\\.*a\\.*";
+//	String regexp() default "^(((\\+?64\\s*[-\\.]?[3-9]|\\(?0[3-9]\\)?)\\s*[-\\.]?\\d{3}\\s*[-\\.]?\\d{4})|((\\+?64\\s*[-\\.\\(]?2\\d{1}[-\\.\\)]?|\\(?02\\d{1}\\)?)\\s*[-\\.]?\\d{3}\\s*[-\\.]?\\d{3,5})|((\\+?64\\s*[-\\.]?[-\\.\\(]?800[-\\.\\)]?|[-\\.\\(]?0800[-\\.\\)]?)\\s*[-\\.]?\\d{3}\\s*[-\\.]?(\\d{2}|\\d{5})))$";
 
 	Class<?>[] groups() default {};
 

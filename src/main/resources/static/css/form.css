@@ -1,0 +1,19 @@
+.div-row{
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.error-text{
+    color: #FF0000;
+}
+
+.container{
+    padding: 10px;
+}
+
+.div-center{
+    margin:0 auto;
+    width:300px;
+    height:100px;
+    border:1px solid #F00
+}

@@ -7,6 +7,7 @@ xmlns:th="http://www.thymeleaf.org">
 	<script th:src="@{/js/jquery-3.1.1.min.js}"></script>
 
 	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+	<link rel="stylesheet" th:href="@{/css/form.css}"/>
 </head>
 <body>
 
@@ -16,26 +17,30 @@ xmlns:th="http://www.thymeleaf.org">
 				<form class="form-signin" th:action="${loginUrl}"  method="POST">
 
 					<div id="form-group"><!--Title-->
-						<h2 class="form-signin-heading text-center">Admin Login</h2>
+						<h2 class="form-signin-heading text-center div-row">Admin Login</h2>
 						<p th:if="${param.error}" class="error error-text">Wrong account name or password</p>
 						<!--Error message-->
 					</div>
 
 					<div id="form-group"><!--account name bounded to adminUser.name-->
-						<label for="username" class="sr-only">Username:</label>
-						<input type="text" id="username" name="username" class="form-control" placeholder="Account"/>
+						<div class="col-sm-3">
+							<label for="username" style="padding-top: 20px">Username:</label>
+						</div>
+						<div class="col-sm-9">
+							<input type="text" id="username" name="username" class="form-control div-row" placeholder="Account"/>
+						</div>
 						<!--Error message-->
 					</div>
 
 					<div id="form-group"><!--password bounded to adminUser.passwd-->
 						<label for="password" class="sr-only">password:</label>
-						<input type="password" name="password" id="password" class="form-control" placeholder="Password" />
+						<input type="password" name="password" id="password" class="form-control div-row" placeholder="Password" />
 						<!--Error message-->
 						<input type ="hidden" th:name ="${_csrf.parameterName}" th:value ="${_csrf.token}"/>
 					</div>
 
 					<div id="form-group"><!--submit button-->
-						<button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+						<button class="btn btn-lg btn-primary btn-block div-row" type="submit">Submit</button>
 					</div>
 				</form>
 			</div>
